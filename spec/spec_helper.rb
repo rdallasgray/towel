@@ -38,6 +38,13 @@ class Parent
       begin
         all = Thing.all
         all.each { |thing| thing.parent = self }
+        class << all
+          def all
+            self
+          end
+          def create(attributes)
+          end
+        end
       end
   end
 end

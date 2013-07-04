@@ -32,8 +32,20 @@ describe Towel::ResourceWrapper do
     @wrapper.single_resource.must_be_same_as Thing.find(id)
   end
 
+  it 'should create a resource' do
+    attrs = { test: 1 }
+    Thing.expects(:create).with(attrs)
+    @wrapper.create_resource(attrs)
+  end
+
   it 'should get a parent resource' do
     wrapper = Towel::ResourceWrapper.new(@controller, { parent: true })
     wrapper.parent_resource.must_be_instance_of Parent
+  end
+
+  it 'should get a collection from a parent resource' do
+    wrapper = Towel::ResourceWrapper.new(@controller, { parent: true })
+    collection = wrapper.resource_collection
+    collection.first.parent.must_equal wrapper.parent_resource
   end
 end

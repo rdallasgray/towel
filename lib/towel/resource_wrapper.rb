@@ -23,12 +23,20 @@ module Towel
       resource_class.new
     end
 
+    def create_resource(attributes)
+      collection_source.create(attributes)
+    end
+
     def resource_collection
-      resource_class.all
+      collection_source.all
     end
 
     def single_resource
       resource_class.find(@controller.params[:id])
+    end
+
+    def parent?
+      !parent_resource.nil?
     end
 
     def parent_resource
@@ -36,6 +44,10 @@ module Towel
     end
 
     private
+
+    def collection_source
+      parent? ? parent_resource.send(collection_symbol) : resource_class
+    end
 
     def get_resource_class
       class_name = @controller.controller_name.classify
