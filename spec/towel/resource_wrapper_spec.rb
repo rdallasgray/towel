@@ -31,4 +31,9 @@ describe Towel::ResourceWrapper do
     id = @controller.params[:id]
     @wrapper.single_resource.must_be_same_as Thing.find(id)
   end
+
+  it 'should get a parent resource' do
+    wrapper = Towel::ResourceWrapper.new(@controller, { parent: true })
+    wrapper.parent_resource.must_be_instance_of Parent
+  end
 end

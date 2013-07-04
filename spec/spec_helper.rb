@@ -12,16 +12,32 @@ class ThingsController
   end
 
   def params
-    { id: 1 }
+    { id: 1, parent_id: 1, thing: { id: 1 } }
   end
 end
 
 class Thing
+  attr_accessor :parent
+
   def self.all
-    @all ||= [self.class.new, self.class.new]
+    @all ||= [Thing.new, Thing.new]
   end
 
   def self.find(id)
-    @one ||= self.class.new
+    @one ||= Thing.new
+  end
+end
+
+class Parent
+  def self.find(id)
+    @one ||= Parent.new
+  end
+
+  def things
+    @things ||=
+      begin
+        all = Thing.all
+        all.each { |thing| thing.parent = self }
+      end
   end
 end
