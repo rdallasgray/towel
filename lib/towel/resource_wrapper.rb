@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+require 'active_support/core_ext/string'
+
 module Towel
   class ResourceWrapper
     def initialize(controller, options)

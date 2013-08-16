@@ -33,6 +33,10 @@ class Parent
     @one ||= Parent.new
   end
 
+  def self.all
+    @all ||= [Parent.new]
+  end
+
   def things
     @things ||=
       begin
