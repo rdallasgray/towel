@@ -1,12 +1,12 @@
 # encoding: UTF-8
 
 require_relative '../spec_helper'
-require_relative '../../lib/towel/rail'
 
 describe Towel::Rail do
 
   before do
     @controller = ThingsController.new
+    @controller.extend(Towel::ResourceHelpers)
     @rail = Towel::Rail.new(@controller)
   end
 

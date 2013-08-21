@@ -24,4 +24,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard', '>= 1.8'
   spec.add_development_dependency 'guard-minitest'
   spec.add_development_dependency 'mocha'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry-doc'
+  spec.add_development_dependency 'pry-nav'
+  spec.add_development_dependency 'pry-stack_explorer'
 end

@@ -2,6 +2,7 @@
 
 require 'minitest/autorun'
 require 'mocha/setup'
+require 'towel'
 
 class ThingsController
   def controller_name
@@ -12,7 +13,7 @@ class ThingsController
   end
 
   def params
-    { id: 1, parent_id: 1, thing: { id: 1 } }
+    { id: 1, thing: { id: 1 } }
   end
 end
 

@@ -3,12 +3,7 @@
 require 'active_support/core_ext/string'
 
 module Towel
-  class ResourceWrapper
-    def initialize(controller, options)
-      @controller = controller
-      @options = options
-    end
-
+  module ResourceHelpers
     def resource_class
       @resource_class ||= get_resource_class
     end
@@ -34,7 +29,7 @@ module Towel
     end
 
     def single_resource
-      resource_class.find(@controller.params[:id])
+      resource_class.find(params[:id])
     end
 
     def parent?
@@ -52,18 +47,18 @@ module Towel
     end
 
     def get_resource_class
-      class_name = @controller.controller_name.classify
+      class_name = controller_name.classify
       Kernel.const_get(class_name)
     end
 
     def get_parent_resource
-      foreign_keys = @controller.params.keys.select do |k|
-        resource_params = @controller.params[resource_symbol]
+      foreign_keys = params.keys.select do |k|
+        resource_params = params[resource_symbol]
         /^\w+_id$/ =~ k && (resource_params.nil? || !resource_params.include?(k))
       end
       return nil if foreign_keys.empty?
       parent_key = foreign_keys.first
-      parent_id = @controller.params[parent_key]
+      parent_id = params[parent_key]
       class_name = parent_key[0..-4].classify
       Kernel.const_get(class_name).find(parent_id)
     end

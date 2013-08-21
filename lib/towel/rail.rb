@@ -1,14 +1,10 @@
 # encoding: UTF-8
 
-require_relative 'resource_wrapper'
-
 module Towel
   class Rail
     def initialize(controller, options={})
-      @test = 'test'
       @controller = controller
       @options = options
-      @resource_wrapper = ResourceWrapper.new(@controller, options)
       create_actions
     end
 
@@ -24,9 +20,8 @@ module Towel
     end
 
     def create_index
-      rw = @resource_wrapper
-      create_method(:index) do
-        respond_with(rw.resource_collection)
+       create_method(:index) do
+        respond_with(resource_collection)
       end
     end
 
